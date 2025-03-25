@@ -8,12 +8,7 @@
 
 using KCPExampleServer;
 using MOBAProtocol;
-using PEUtils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SULog;
 
 namespace MOBAServer
 {
@@ -26,13 +21,13 @@ namespace MOBAServer
             base.Init();
             pvpRoomLst = new List<PVPRoom>();
             pvpRoomDic = new Dictionary<uint, PVPRoom>();
-            this.Log("RoomSys Init Done.");
+            SULogger.Log("RoomSys Init Done.");
 
             TimerSvc.Instance.AddTask(5000, CheckStatus, null, 0);
         }
         void CheckStatus(int id)
         {
-            this.ColorLog(PEUtils.LogColor.Magenta, $"对战房间负载：{pvpRoomLst.Count}个");
+            SULogger.LogColor(LogColorEnum.Magenta, $"对战房间负载：{pvpRoomLst.Count}个");
         }
 
         //创建一个房间，根据模式
@@ -67,7 +62,7 @@ namespace MOBAServer
             }
             else
             {
-                this.Warn($"该房间{req.roomID}不存在 或者已经销毁");
+                SULogger.LogWarn($"该房间{req.roomID}不存在 或者已经销毁");
             }
         }
 
@@ -80,7 +75,7 @@ namespace MOBAServer
             }
             else
             {
-                this.Warn($"选择英雄房间->{roomID}  已被摧毁");
+                SULogger.LogWarn($"选择英雄房间->{roomID}  已被摧毁");
             }
         }
 
@@ -93,7 +88,7 @@ namespace MOBAServer
             }
             else
             {
-                this.Warn($"加载进度房间->{roomID}  已被摧毁");
+                SULogger.LogWarn($"加载进度房间->{roomID}  已被摧毁");
             }
         }
 
@@ -106,7 +101,7 @@ namespace MOBAServer
             }
             else
             {
-                this.Warn($"通知房间该客户端加载完成->{roomID}  已被摧毁");
+                SULogger.LogWarn($"通知房间该客户端加载完成->{roomID}  已被摧毁");
             }
         }
 
@@ -119,7 +114,7 @@ namespace MOBAServer
             }
             else
             {
-                this.Warn("PVPRoom ID:" + snd.roomID + " is not exist.");
+                SULogger.LogWarn("PVPRoom ID:" + snd.roomID + " is not exist.");
             }
         }
 
@@ -132,7 +127,7 @@ namespace MOBAServer
             }
             else
             {
-                this.Warn("PVPRoom ID:" + snd.roomID + " is not exist.");
+                SULogger.LogWarn("PVPRoom ID:" + snd.roomID + " is not exist.");
             }
         }
 
@@ -145,7 +140,7 @@ namespace MOBAServer
             }
             else
             {
-                this.Warn("PVPRoom ID:" + snd.roomID + " is not exist.");
+                SULogger.LogWarn("PVPRoom ID:" + snd.roomID + " is not exist.");
             }
         }
 
@@ -173,7 +168,7 @@ namespace MOBAServer
             }
             else
             {
-                this.Error("PVPRoom is not exist ID:" + roomID);
+                SULogger.LogError("PVPRoom is not exist ID:" + roomID);
             }
         }
     }

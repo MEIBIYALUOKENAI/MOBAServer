@@ -7,6 +7,7 @@
 *-------------------------------------------------------------------------*/
 
 using MOBAProtocol;
+using SULog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,7 +62,7 @@ namespace MOBAServer
             }
             else
             {
-                this.ColorLog(PEUtils.LogColor.Yellow, "RoomID:{0} 确认超时，解散房间，重新匹配。", room.roomID);
+                SULogger.LogColor(LogColorEnum.Yellow, "RoomID:{0} 确认超时，解散房间，重新匹配。", room.roomID);
                 MOBAMsg msg = new MOBAMsg
                 {
                     cmd = CMD.NtfConfirm,
@@ -85,11 +86,11 @@ namespace MOBAServer
             {
                 if (TimerSvc.Instance.DeleteTask(checkTaskID))
                 {
-                    this.ColorLog(PEUtils.LogColor.Green, "RoomID:{0} 所有玩家确认完成，进入英雄选择。", room.roomID);
+                    SULogger.LogColor(LogColorEnum.Green, "RoomID:{0} 所有玩家确认完成，进入英雄选择。", room.roomID);
                 }
                 else
                 {
-                    this.Warn($"RoomID{room.roomID} 所有玩家确认完成，删除超时函数回调失败");
+                    SULogger.LogWarn($"RoomID{room.roomID} 所有玩家确认完成，删除超时函数回调失败");
                 }
                 room.ChangeRoomState(RoomStateEnum.Select);
             }

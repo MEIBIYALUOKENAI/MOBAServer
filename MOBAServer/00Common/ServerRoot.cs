@@ -5,7 +5,7 @@
 * 创建时间：  2024/8/10 11:35:39
 * 创建人:        Meibiyaluokenai
 *-------------------------------------------------------------------------*/
-using PEUtils;
+using SULog;
 namespace MOBAServer
 {
     public class ServerRoot:Singleton<ServerRoot>
@@ -14,7 +14,7 @@ namespace MOBAServer
         {
             base.Init();
             //日志默认初始化，使用控制台打印消息
-            PELog.InitSettings();
+            SULogger.InitSettings();
 
             //服务
             NetSvc.Instance.Init();//网络服务
@@ -25,7 +25,7 @@ namespace MOBAServer
             MatchSys.Instance.Init();
             RoomSys.Instance.Init();
 
-            PELog.ColorLog(LogColor.Green, "ServerRoot Init Done");
+            SULogger.LogColor(LogColorEnum.Green, "ServerRoot Init Done");
         }
         /// <summary>
         /// 一秒钟刷新100次

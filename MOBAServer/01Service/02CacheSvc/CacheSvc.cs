@@ -8,7 +8,7 @@
 
 using KCPExampleServer;
 using MOBAProtocol;
-using PEUtils;
+using SULog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +29,7 @@ namespace MOBAServer
             base.Init();
             onLineAcctDic = new Dictionary<string, ServerSession>();
             onLineSessionDic = new Dictionary<ServerSession, UserData>();
-            PELog.Log("CacheSvc Init Done");
+            SULogger.Log("CacheSvc Init Done");
         }
 
         public override void Update()

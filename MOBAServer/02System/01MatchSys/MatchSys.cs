@@ -8,7 +8,7 @@
 
 using KCPExampleServer;
 using MOBAProtocol;
-using PEUtils;
+using SULog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,13 +29,13 @@ namespace MOBAServer
             que2V2 = new Queue<ServerSession>();
             que5V5 = new Queue<ServerSession>();
 
-            PELog.Log("MatchSys Init Done");
+            SULogger.Log("MatchSys Init Done");
 
             TimerSvc.Instance.AddTask(5000, CheckStatus, null, 0);
         }
         void CheckStatus(int id)
         {
-            this.ColorLog(PEUtils.LogColor.Yellow, $"匹配队列负载：1v1=>{que1V1.Count}人，2v2=>{que2V2.Count}人，5v5=>{que5V5.Count}人");
+            SULogger.LogColor(LogColorEnum.Yellow, $"匹配队列负载：1v1=>{que1V1.Count}人，2v2=>{que2V2.Count}人，5v5=>{que5V5.Count}人");
         }
         //实时判断匹配队列中  是否匹配成功
         public override void Update()
@@ -93,7 +93,7 @@ namespace MOBAServer
                     break;
                 case PVPEnum.None:
                 default:
-                    this.Error("不存在该匹配类型" + pvpEnum.ToString());
+                    SULogger.LogError("不存在该匹配类型" + pvpEnum.ToString());
                     break;
             }
             //2.回应匹配消息，让客户端开始匹配，并根据当前模式正在匹配的人数发送预测时间

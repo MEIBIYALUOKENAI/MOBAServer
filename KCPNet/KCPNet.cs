@@ -7,6 +7,7 @@
 *-------------------------------------------------------------------------*/
 
 
+using SULog;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -14,7 +15,6 @@ using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
-using PEUtils;
 namespace SUNet
 {
     public class KCPNet<T,K> where T: KCPSession<K>,new ()
@@ -47,7 +47,7 @@ namespace SUNet
                 _udp.Client.IOControl((IOControlCode)(-1744830452), new byte[] { 0, 0, 0, 0 }, null);
             }
             
-            PELog.ColorLog(LogColor.Green, "Server Start.....");
+            SULogger.LogColor(LogColorEnum.Green, "Server Start.....");
             Task.Run(ServerRecive, _CT);//异步操作 指定的工作排成队列，在Tread Pool上运行
 
         }
@@ -61,7 +61,7 @@ namespace SUNet
                 {
                     if (_CT.IsCancellationRequested)
                     {
-                        PELog.Warn("服务端端接受消息循环被取消");
+                        SULogger.LogWarn("服务端端接受消息循环被取消");
                         break;
                     }
                     result = await _udp.ReceiveAsync();//等待异步接受完成
@@ -104,7 +104,7 @@ namespace SUNet
                 }
                 catch (Exception e)
                 {
-                    PELog.Warn($"服务端异步接受消息处理异常+{e.ToString()}");
+                    SULogger.LogWarn($"服务端异步接受消息处理异常+{e.ToString()}");
                 }
             }
         }
@@ -115,11 +115,11 @@ namespace SUNet
                 if(_sessionDic.TryGetValue(sid,out T session))
                 {
                     _sessionDic.Remove(sid);
-                    PELog.Warn($"客户端{sid}断开连接");
+                    SULogger.LogWarn($"客户端{sid}断开连接");
                 }
                 else
                 {
-                    PELog.Error("Session 不在字典里 但是存在？？？");
+                    SULogger.LogError("Session 不在字典里 但是存在？？？");
                 }
             }
         }
@@ -174,7 +174,7 @@ namespace SUNet
             
             _udp = new UdpClient(0);//随机分配一个可使用的进程 端口号
             _remotePoint = new IPEndPoint(IPAddress.Parse(ip), port);
-            PELog.ColorLog(LogColor.Green, "Client Start.....");
+            SULogger.LogColor(LogColorEnum.Green, "Client Start.....");
             Task.Run(ClientRecive, _CT);//异步操作 指定的工作排成队列，在Tread Pool上运行
 
         }
@@ -224,7 +224,7 @@ namespace SUNet
                 {
                     if (_CT.IsCancellationRequested)
                     {
-                        PELog.Warn("客户端接受消息循环被取消");
+                        SULogger.LogWarn("客户端接受消息循环被取消");
                         break;
                     }
 
@@ -240,13 +240,13 @@ namespace SUNet
                             //收到sid (密钥)  
                             if (_clientSession != null && _clientSession.IsConnected())
                             {
-                                PELog.Warn("已经连接到服务端 sid已存在!!!");
+                                SULogger.LogWarn("已经连接到服务端 sid已存在!!!");
                             }
                             else
                             {
                                 //第一次连接
                                 sid = BitConverter.ToUInt32(result.Buffer, 4);
-                                PELog.ColorLog(LogColor.Green, $"连接服务器，存储[sid]:{sid}做客户端唯一标识");
+                                SULogger.LogColor(LogColorEnum.Green, $"连接服务器，存储[sid]:{sid}做客户端唯一标识");
 
                                 _clientSession = new T();//正式创建kcpSession
                                 _clientSession.InitSession(sid,SendUDPMsg, _remotePoint);
@@ -262,18 +262,18 @@ namespace SUNet
                             }
                             else
                             {
-                                PELog.Warn(sid+"未连接但是收到消息了，无效！！！");
+                                SULogger.LogWarn(sid+"未连接但是收到消息了，无效！！！");
                             }
                         }
                     }
                     else
                     {
-                        PELog.Warn("不是目标服务器的消息");
+                        SULogger.LogWarn("不是目标服务器的消息");
                     }
                 }
                 catch(Exception e)
                 {
-                    PELog.Warn($"客户端异步接受消息处理异常+{e.ToString()}");
+                    SULogger.LogWarn($"客户端异步接受消息处理异常+{e.ToString()}");
                 }
             }
         }
@@ -285,7 +285,7 @@ namespace SUNet
                 _udp.Close();
                 _udp = null;
             }
-            PELog.Warn($"客户端sid{sid}断开连接");
+            SULogger.LogWarn($"客户端sid{sid}断开连接");
         }
         private void SendUDPMsg(byte[] bytes, IPEndPoint remotePoint)
         {

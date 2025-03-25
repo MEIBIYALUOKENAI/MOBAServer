@@ -21,8 +21,11 @@
     <Reference Include="PETimer">
       <HintPath>..\dll\PETimer.dll</HintPath>
     </Reference>
-    <Reference Include="PEUtils">
-      <HintPath>D:\UnityProjects\MOBA\Assets\Scripts\00Common\Libs\PEUtils.dll</HintPath>
+    <Reference Include="SULogger">
+      <HintPath>..\..\Dll\SULogger.dll</HintPath>
+    </Reference>
+    <Reference Include="SUTimer">
+      <HintPath>..\..\Dll\SUTimer.dll</HintPath>
     </Reference>
   </ItemGroup>
 

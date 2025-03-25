@@ -7,6 +7,7 @@
 *-------------------------------------------------------------------------*/
 
 using MOBAProtocol;
+using SULog;
 
 namespace MOBAServer
 {
@@ -47,7 +48,7 @@ namespace MOBAServer
             }
             else
             {
-                this.Warn($"房间[RoomID]->{room.roomID} 玩家超时未确认选择，默认英雄。");
+                SULogger.LogWarn($"房间[RoomID]->{room.roomID} 玩家超时未确认选择，默认英雄。");
                 for (int i = 0; i < selectArr.Length; i++)
                 {
                     if (selectArr[i].selectDone == false)
@@ -74,11 +75,11 @@ namespace MOBAServer
                 //进入load状态
                 if (TimerSvc.Instance.DeleteTask(checkTaskID))
                 {
-                    this.ColorLog(PEUtils.LogColor.Green, $"RoomID:{room.roomID}所有玩家选择英雄完成，进入游戏加载。");
+                    SULogger.LogColor(LogColorEnum.Green, $"RoomID:{room.roomID}所有玩家选择英雄完成，进入游戏加载。");
                 }
                 else
                 {
-                    this.Warn("删除选择超时任务失败.");
+                    SULogger.LogWarn("删除选择超时任务失败.");
                 }
 
                 room.SelectArr = selectArr;

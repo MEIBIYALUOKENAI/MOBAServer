@@ -7,7 +7,7 @@
 *-------------------------------------------------------------------------*/
 
 using MOBAProtocol;
-using PEUtils;
+using SULog;
 
 namespace MOBAServer
 {
@@ -17,7 +17,7 @@ namespace MOBAServer
         {
             base.Init();
 
-            PELog.Log("LoginSys Init Done");
+            SULogger.Log("LoginSys Init Done");
         }
 
         public override void Update()

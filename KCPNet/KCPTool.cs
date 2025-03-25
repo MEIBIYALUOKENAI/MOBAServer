@@ -12,7 +12,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.Text;
-using PEUtils;
+using SULog;
 using SUNet;
 using System.IO.Compression;
 using Newtonsoft.Json;
@@ -35,7 +35,7 @@ using Newtonsoft.Json;
                 }
                 catch (Exception ex)
                 {
-                    PELog.Error($"Failed to serialize. Reson:{ex.Message}");
+                    SULogger.LogError($"Failed to serialize. Reson:{ex.Message}");
                     throw;
                 }
             }
@@ -52,7 +52,7 @@ using Newtonsoft.Json;
                 }
                 catch (SerializationException ex)
                 {
-                    PELog.Error($"Failed to deSerialize. Reson:{ex.Message}");
+                    SULogger.LogError($"Failed to deSerialize. Reson:{ex.Message}");
                     throw;
                 }
             }

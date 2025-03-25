@@ -7,7 +7,7 @@
 *-------------------------------------------------------------------------*/
 
 using PETimer;
-using PEUtils;
+using SULog;
 
 namespace MOBAServer
 {
@@ -21,7 +21,7 @@ namespace MOBAServer
         public override void Init()
         {
             base.Init();
-            PELog.Log("TimerSvc Init Done");
+            SULogger.Log("TimerSvc Init Done");
         }
 
         public override void Update()

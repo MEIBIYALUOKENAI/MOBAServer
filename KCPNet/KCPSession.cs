@@ -6,7 +6,7 @@
 * 创建人:        Meibiyaluokenai
 *-------------------------------------------------------------------------*/
 
-using PEUtils;
+using SULog;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -102,7 +102,7 @@ namespace SUNet
                     OnUpdate(now);
                     if (_CT.IsCancellationRequested)
                     {
-                        PELog.Warn("与KCP连接接受处理后的数据操作 断开连接");
+                        SULogger.LogWarn("与KCP连接接受处理后的数据操作 断开连接");
                         break;
                     }
                     else
@@ -128,7 +128,7 @@ namespace SUNet
                 }
             }catch (Exception ex)
             {
-                PELog.Warn($"会话更新异常{ex}");
+                SULogger.LogWarn($"会话更新异常{ex}");
             }
         }
 
@@ -141,7 +141,7 @@ namespace SUNet
             }
             else
             {
-                PELog.Warn("未建立连接，你在发什么呀");
+                SULogger.LogWarn("未建立连接，你在发什么呀");
             }
         }
 
@@ -158,7 +158,7 @@ namespace SUNet
             }
             else
             {
-                PELog.Warn("未建立连接，你在发什么呀");
+                SULogger.LogWarn("未建立连接，你在发什么呀");
             }
         }
         public void SendMsg(byte[] bytes,bool isKey)//序列化压缩后的数据发送
@@ -170,7 +170,7 @@ namespace SUNet
             }
             else
             {
-                PELog.Warn("未建立连接，你在发什么呀");
+                SULogger.LogWarn("未建立连接，你在发什么呀");
             }
         }
 

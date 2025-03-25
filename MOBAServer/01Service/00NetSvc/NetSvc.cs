@@ -8,7 +8,7 @@
 
 using KCPExampleServer;
 using MOBAProtocol;
-using PEUtils;
+using SULog;
 using SUNet;
 
 namespace MOBAServer
@@ -42,7 +42,7 @@ namespace MOBAServer
 #endif
 
 
-            PELog.ColorLog(LogColor.Green,"NetSvc Init Done");
+            SULogger.LogColor(LogColorEnum.Green,"NetSvc Init Done");
         }
 
         public void AddMsgPack(ServerSession session,MOBAMsg msg)

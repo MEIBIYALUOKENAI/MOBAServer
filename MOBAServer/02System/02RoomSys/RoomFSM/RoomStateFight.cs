@@ -7,6 +7,7 @@
 *-------------------------------------------------------------------------*/
 
 using MOBAProtocol;
+using SULog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,11 +80,11 @@ namespace MOBAServer
             //
             if (TimerSvc.Instance.DeleteTask(checkTaskID))
             {
-                this.ColorLog(PEUtils.LogColor.Green, "Delete Sync Task Success.");
+                SULogger.LogColor(LogColorEnum.Green, "Delete Sync Task Success.");
             }
             else
             {
-                this.Warn("Delete Sync Task Failed.");
+                SULogger.LogWarn("Delete Sync Task Failed.");
             }
             room.ChangeRoomState(RoomStateEnum.End);
         }

@@ -7,6 +7,7 @@
 *-------------------------------------------------------------------------*/
 
 using MOBAProtocol;
+using SULog;
 
 namespace MOBAServer
 {
@@ -93,7 +94,7 @@ namespace MOBAServer
             room.BroadcastMsg(msg);
 
             room.ChangeRoomState(RoomStateEnum.Fight);
-            this.ColorLog(PEUtils.LogColor.Green, $"RoomID:{room.roomID} 所有玩家加载完成，进入战斗。");
+            SULogger.LogColor(LogColorEnum.Green, $"RoomID:{room.roomID} 所有玩家加载完成，进入战斗。");
         }
 
         public override void Exit()

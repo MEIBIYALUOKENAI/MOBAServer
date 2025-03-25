@@ -8,7 +8,7 @@
 
 using MOBAProtocol;
 using MOBAServer;
-using PEUtils;
+using SULog;
 using SUNet;
 
 
@@ -18,17 +18,17 @@ namespace KCPExampleServer
     {
         protected override void OnConnected()
         {
-            this.ColorLog(LogColor.Green, $"客户端[SID]:{_sid}已连接");
+            SULogger.LogColor(LogColorEnum.Green, $"客户端[SID]:{_sid}已连接");
         }
 
         protected override void OnDisConnected()
         {
-            this.ColorLog(LogColor.Green, $"客户端[SID]:{_sid}断开连接");
+            SULogger.LogColor(LogColorEnum.Green, $"客户端[SID]:{_sid}断开连接");
         }
 
         protected override void OnReceiveMsg(MOBAMsg msg)
         {
-            this.Log($"C->S 客户端[SID]:{_sid} [CMD]->{msg.cmd}");
+            SULogger.Log($"C->S 客户端[SID]:{_sid} [CMD]->{msg.cmd}");
             NetSvc.Instance.AddMsgPack(this,msg);
         }
         protected override void OnUpdate(DateTime now)
